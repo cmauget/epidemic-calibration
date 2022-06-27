@@ -15,8 +15,8 @@ y0 = S0, I0, R0
 beta = 0.5 #contact rate
 gamma = 1./10 #recovered rate
 
-
-t = np.linspace(0, 365/2) #timeseries (\days)
+n=175 #number of days
+t = np.linspace(0, n, n) #timeseries (\days)
 
 
 def deriv(y, t, N, beta, gamma): #SIR model
@@ -30,6 +30,16 @@ def deriv(y, t, N, beta, gamma): #SIR model
 res = odeint(deriv, y0, t, args=(N, beta, gamma)) #using odeint to intigrate and solve
 S, I, R = res.T
 
+#data file
+size=int(input("How many data do you want to generate ? (number of days) : "))
+print(size)
+ficname="data_"+str(size)+".txt"
+fic = open("data/"+ficname,"w")
+for i in range(size):
+    fic.write(str(i+1)+","+str(int(S[i]))+","+str(int(I[i]))+","+str(int(R[i]))+"\n")
+fic.close()
+
+"""
 #display
 fig = plt.figure(facecolor='w')
 ax = fig.add_subplot(111, facecolor='#dddddd', axisbelow=True)
@@ -39,9 +49,10 @@ ax.plot(t, R, 'g', alpha=0.5, lw=2, label='Recovered with immunity')
 ax.set_xlabel('Time /days')
 ax.set_ylabel('Number ')
 ax.set_ylim(0, N)
-ax.grid(b=True, which='major', c='w', lw=2, ls='-')
+ax.grid(visible=True, which='major', c='w', lw=2, ls='-')
 legend = ax.legend()
 legend.get_frame().set_alpha(0.5)
 for spine in ('top', 'right', 'bottom', 'left'):
     ax.spines[spine].set_visible(False)
 plt.show()
+"""

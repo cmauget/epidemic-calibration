@@ -1,4 +1,5 @@
 #regroup different EDO solvers
+import numpy as np
 
 def RK4(dt,Times,y0,f):
     sol=[y0];
