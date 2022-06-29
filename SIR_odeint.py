@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
+import csv
 
 
 N = 3e8 #population
@@ -26,20 +27,37 @@ def deriv(y, t, N, beta, gamma): #SIR model
     dRdt = gamma * I
     return dSdt, dIdt, dRdt
 
+def noise(X,t,val): #function to add noise in the date
+    return X
 
 res = odeint(deriv, y0, t, args=(N, beta, gamma)) #using odeint to intigrate and solve
 S, I, R = res.T
 
-#data file
+#to generate datasheets
 size=int(input("How many data do you want to generate ? (number of days) : "))
 print(size)
+
+#data file
 ficname="data_"+str(size)+".txt"
 fic = open("data/"+ficname,"w")
 for i in range(size):
     fic.write(str(i+1)+","+str(int(S[i]))+","+str(int(I[i]))+","+str(int(R[i]))+"\n")
 fic.close()
 
-"""
+#csv file
+header = ['day','suspected', 'Infected','Recovered']
+ficnamecsv="data_"+str(size)+".csv"
+
+with open("data/"+ficnamecsv, 'w') as f:
+    writer = csv.writer(f)
+    writer.writerow(header)
+    for i in range(size):
+        data = [int(i+1),int(S[i]),int(I[i]),int(R[i])]
+        writer.writerow(data)
+
+
+
+
 #display
 fig = plt.figure(facecolor='w')
 ax = fig.add_subplot(111, facecolor='#dddddd', axisbelow=True)
@@ -55,4 +73,3 @@ legend.get_frame().set_alpha(0.5)
 for spine in ('top', 'right', 'bottom', 'left'):
     ax.spines[spine].set_visible(False)
 plt.show()
-"""
