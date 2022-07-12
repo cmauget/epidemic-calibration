@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from lmfit import Model
 
-ficdata = "data/data_SIR_54_n.csv"
+ficdata = "data/data_SIRX_54.csv"
 data = pd.read_csv(ficdata)
 
 print("Loading "+ficdata+"...")
@@ -13,7 +13,7 @@ size = len(data["Day"])
 sum = [size]
 temp = 0
 
-train_size = 51
+train_size = 42
 
 for i in range(size):
     temp = temp + data.Infected[i]
@@ -42,13 +42,11 @@ def funcSlog(beta, data, t):
     return int(np.log(3)+8+((-beta * t * sum[t])/3e8))
 
 guess = [0.5,1./10]
-g = 0.4
+g = 0.3
 
 #----------------------------------------------------#
 
 mymodel = Model(funcIClm)
-
-
 params = mymodel.make_params(delta = g)
 
 res=0#params['sum'].vary = False
@@ -75,9 +73,9 @@ ydata = np.resize(ydata,train_size)
 c,cov = curve_fit(funcIC,xdata, ydata)
 print(c)
 
-
 c2,cov2 = curve_fit(funcICO, xdata , ydata )
 print(c2)
+
 
 for i in range(size):
     ysolv[i]=funcIC(c,i)
