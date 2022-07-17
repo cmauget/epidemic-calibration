@@ -31,9 +31,8 @@ def deriv(y, t, N, beta, gamma):
 #simple function to add noise
 def noise(S,I,R,val,n,N): 
     for i in range(n):
-        noise1 = (val/100)*N*random.random()
+        ni = I[i]*(val/100)*random.random()
         frac1 = random.random()
-        ni = noise1
         ns = ni * frac1
         nr = ni * (1 - frac1)
         I[i] = I[i] + ni
@@ -89,7 +88,6 @@ ax.plot(t, I, 'r', alpha=0.5, lw=2, label='Infected')
 ax.plot(t, R, 'g', alpha=0.5, lw=2, label='Recovered with immunity')
 ax.set_xlabel('Time /days')
 ax.set_ylabel('Number ')
-1
 ax.grid(visible=True, which='major', c='w', lw=2, ls='-')
 legend = ax.legend()
 legend.get_frame().set_alpha(0.5)
