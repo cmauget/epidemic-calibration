@@ -60,7 +60,7 @@ plt.show()
 
 
 #---------------- Fitted on NYC data---------------------#
-data_nyc_br = pd.read_csv("nyc.csv")
+data_nyc_br = pd.read_csv("data/nyc.csv")
 
 data_nyc_nr = data_nyc_br["CASE_COUNT"].to_numpy()#Fitting on Infected data
 
