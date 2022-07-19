@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from lmfit import Model
 
-ficdata = "data/data_SIRX_54.csv"
+ficdata = "data/data_SIR_54.csv"
 data = pd.read_csv(ficdata)
 
 print("Loading "+ficdata+"...")
@@ -13,7 +13,7 @@ size = len(data["Day"])
 sum = [size]
 temp = 0
 
-train_size = 42
+train_size = 20
 
 for i in range(size):
     temp = temp + data.Infected[i]
@@ -77,28 +77,23 @@ c2,cov2 = curve_fit(funcICO, xdata , ydata )
 print(c2)
 
 
-for i in range(size):
-    ysolv[i]=funcIC(c,i)
-    ysolv2[i]=funcICO(c2[1],c2[0],i)
-
-
-
-
-
-result = mymodel.fit(ydata, params, t=xdata)
+result = mymodel.fit(ydata, params, t=xdata, method="lbfgsb")
 print(result.fit_report())
 
+delta_fit=result.params['delta'].value
 
-print(data["Infected"])
+
+for i in range(size):
+    ysolv[i]=funcIC(c,i)
+    ysolv2[i]=funcIC(delta_fit,i)
+   
+
+
 #display
-#plt.plot(data["Day"],data["Infected"],"r.",label="Data")
-#plt.plot(xdata ,ydata,"b.",label="Data used to train")
-plt.plot(xdata, result.best_fit, ydata,"y.",label="Lmfit")
-#plt.plot(data["day"],np.log(data["suspected"]))
-#plt.plot(data["day"],data["Infected"])
-#plt.plot(data["Day"],y3,'b.')
+plt.plot(data["Day"],data["Infected"],"+",label="Data")
+plt.axvline(x=train_size,color='gray',linestyle='--', label="End of train dataset")
 plt.plot(data["Day"],ysolv,label="predicted")
-#plt.plot(data["Day"],ysolv2,label="predicted with origin compensation")
+plt.plot(data["Day"],ysolv2, linestyle='--', label="predicted with lmfit")
 plt.legend()
 plt.ylim(0, 3e8)
 plt.show()
