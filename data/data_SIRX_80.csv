@@ -1,4 +1,4 @@
-day,suspected,Infected,Recovered,Quarantined
+Day,Suspected,Infected,Recovered,Quarantined
 1,299999999,1,0,0
 2,299999998,1,0,0
 3,299999996,2,0,0
