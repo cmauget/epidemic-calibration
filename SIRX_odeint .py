@@ -22,18 +22,17 @@ gamma = 1./10 #recovered rate
 alpha = 1./10 #out of quarantine rate
 k = 0.2 #chance of getting quarantined while sick
 
-k0 = 0. #chance of getting quarantined without being sick
 
 n=175 #number of days
 t = np.linspace(0, n, n) #timeseries (\days)
 
 #SIR model
-def deriv(y, t, N, beta, gamma, k , k0): 
+def deriv(y, t, N, beta, gamma, k) : 
     S, I, R, X = y
-    dSdt = -beta * S * I / N - k0 * S
-    dIdt = beta * S * I / N - gamma * I -k * I -k0 * I
-    dRdt = gamma * I + k0 * S + alpha * X
-    dXdt = (k+k0) * I - alpha * X 
+    dSdt = -beta * S * I / N 
+    dIdt = beta * S * I / N - gamma * I - k * I 
+    dRdt = gamma * I + alpha * X
+    dXdt = k * I - alpha * X 
     return dSdt, dIdt, dRdt, dXdt
 
 #simple function to add noise
@@ -54,7 +53,7 @@ def noise(S,I,R,X,val,n,N):
 
 
 #using odeint to intigrate and solve
-res = odeint(deriv, y0, t, args=(N, beta, gamma, k, k0)) 
+res = odeint(deriv, y0, t, args=(N, beta, gamma, k)) 
 S, I, R, X = res.T
 print(I)
 #user input for noise
@@ -77,7 +76,7 @@ if int(input("Do you want to generate data ? (yes = 0) : ")) == 0 :
 
     else : 
     #csv file
-        header = ['day','suspected', 'Infected','Recovered','Quarantined']
+        header = ['Day','Suspected', 'Infected','Recovered','Quarantined']
         ficnamecsv="data_SIRX_"+str(size)+".csv"
 
         with open("data/"+ficnamecsv, 'w') as f:
