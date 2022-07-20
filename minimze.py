@@ -77,9 +77,9 @@ class SIRXModel:
         dy[3] = kappa * I - alpha * X
         return dy
 
-    def SIRSolve(self, y0, t, N, beta, gamma, kappa):
+    def SIRSolve(self, y0, t, N, beta, gamma, kappa, alpha):
 
-        res = odeint(self.deriv, y0, t, args=(N, beta, gamma, kappa)) 
+        res = odeint(self.deriv, y0, t, args=(N, beta, gamma, kappa, alpha)) 
         S, I, R, X = res.T
 
         return S, I, R, X
@@ -90,10 +90,11 @@ class SIRXModel:
         beta = params["beta"]
         gamma = params["gamma"]
         kappa = params["kappa"]
+        alpha = params["alpha"]
         N = params["N"]
 
-        S, I, R  = self.SIRSolve(y0, t, N, beta, gamma, kappa)
-        X = I #TO CHANGE WHEN CHANGING FIT
+        S, I, R, Q  = self.SIRSolve(y0, t, N, beta, gamma, kappa, alpha)
+        X = R #TO CHANGE WHEN CHANGING FIT
 
         err = X - data
 
@@ -105,7 +106,8 @@ class SIRXModel:
             params = Parameters()
             params.add('beta',value=guess[0],min=0, max = 10, vary=True)
             params.add('gamma',value=guess[1],min=0, max=2, vary=True)
-            params.add('kappa',value=guess[1],min=0, max=2, vary=True)
+            params.add('kappa',value=guess[2],min=0, max=2, vary=True)
+            params.add('alpha',value=guess[3],min=0, max=2, vary=True)
             params.add('N', value=N, vary=False)
 
         out = minimize(self.err, params, args=(t, data, y0, ),max_nfev=max_nfev)
