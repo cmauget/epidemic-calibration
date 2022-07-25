@@ -53,8 +53,11 @@ class SIRModel:
             params.add('beta',value=guess[0],min=0, max = 10, vary=True)
             params.add('gamma',value=guess[1],min=0, max=2, vary=True)
             params.add('N', value=N, vary=False)
+            
+        # methods=[’leastsq’,’least_squares’,’differential_evolution’,’brute’,’basinhopping’,’ampgo’,’nelder’,’lbfgsb’,’powell’,’cg’,’newton’,’cobyla’,’bfgs’,’tnc’,’trust-ncg’,’trust-exact’,’trust-krylov’,’trust-constr’,’dogleg’,’slsqp’,’emcee’,’shgo’,’dual_annealing’]
+        #impossible : dogleg, emcee
 
-        out = minimize(self.err, params, args=(t, data, y0, ),max_nfev=max_nfev)
+        out = minimize(self.err, params, method='leastsq', args=(t, data, y0, ),max_nfev=max_nfev)
         return out
 
 
