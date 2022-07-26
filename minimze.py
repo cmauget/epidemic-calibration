@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 from lmfit import minimize, Parameters
-import scipy
 
 
 #-------------------SIR model----------------------#
@@ -46,18 +45,15 @@ class SIRModel:
 
         return err
 
-    def fit(self , t, data, guess, y0, N, max_nfev=100000, params=None ):
+    def fit(self , t, data, guess, y0, N, methods='leastsq', max_nfev=100000, params=None ):
 
         if params is None:
             params = Parameters()
             params.add('beta',value=guess[0],min=0, max = 10, vary=True)
             params.add('gamma',value=guess[1],min=0, max=2, vary=True)
             params.add('N', value=N, vary=False)
-            
-        # methods=[’leastsq’,’least_squares’,’differential_evolution’,’brute’,’basinhopping’,’ampgo’,’nelder’,’lbfgsb’,’powell’,’cg’,’newton’,’cobyla’,’bfgs’,’tnc’,’trust-ncg’,’trust-exact’,’trust-krylov’,’trust-constr’,’dogleg’,’slsqp’,’emcee’,’shgo’,’dual_annealing’]
-        #impossible : dogleg, emcee
 
-        out = minimize(self.err, params, method='leastsq', args=(t, data, y0, ),max_nfev=max_nfev)
+        out = minimize(self.err, params, method=methods, args=(t, data, y0, ),max_nfev=max_nfev)
         return out
 
 
@@ -95,44 +91,6 @@ class SIRXModel:
         kappa = params["kappa"]
         alpha = params["alpha"]
         N = params["N"]
-
-        S, I, R, Q  = self.SIRSolve(y0, t, N, beta, gamma, kappa, alpha)
-        X = R #TO CHANGE WHEN CHANGING FIT
-
-        err = X - data
-
-        return err
-
-    def fit(self , t, data, guess, y0, N, max_nfev=100000, params=None ):
-
-        if params is None:
-            params = Parameters()
-            params.add('beta',value=guess[0],min=0, max = 10, vary=True)
-            params.add('gamma',value=guess[1],min=0, max=2, vary=True)
-            params.add('kappa',value=guess[2],min=0, max=2, vary=True)
-            params.add('alpha',value=guess[3],min=0, max=2, vary=True)
-            params.add('N', value=N, vary=False)
-
-        out = minimize(self.err, params, args=(t, data, y0, ),max_nfev=max_nfev)
-        return out
-
-        err = X - data
-
-        return err
-
-    def fit(self , t, data, guess, y0, N, max_nfev=100000, params=None ):
-
-        if params is None:
-            params = Parameters()
-            params.add('beta',value=guess[0],min=0, max = 10, vary=True)
-            params.add('gamma',value=guess[1],min=0, max=2, vary=True)
-            params.add('kappa',value=guess[2],min=0, max=2, vary=True)
-            params.add('alpha',value=guess[3],min=0, max=2, vary=True)
-            params.add('N', value=N, vary=False)
-
-        out = minimize(self.err, params, args=(t, data, y0, ),max_nfev=max_nfev)
-        return out
-
 
         S, I, R, Q  = self.SIRSolve(y0, t, N, beta, gamma, kappa, alpha)
         X = R #TO CHANGE WHEN CHANGING FIT
