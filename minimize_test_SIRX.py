@@ -22,7 +22,7 @@ n=175 #number of days
 t = np.linspace(0, n, n) #timeseries (\days)
 
 #allow quick modification of the number of days to train on
-train_size = 70
+train_size = 60
 t_train = np.linspace(0, train_size, train_size) #time series for the training
 data = np.resize(data_nr,train_size)
 
