@@ -2,62 +2,7 @@ from minimze import SIRModel
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
-#-----------------Fitting on simulated data-----------------------#
-data_br = pd.read_csv("data/data_SIR_175_n.csv")
-
-
-data_nr = data_br["Infected"].to_numpy() #fitting on Infected data
-
-
-N = 3e8 #population
-
-I0 = 1 #Initial number of infected
-R0 = 0 #Initial number of recovered
-S0 = N - I0 - R0 #initial number of recovered
-y0 = S0, I0, R0 #initial state vector
-
-n=175 #number of days
-t = np.linspace(0, n, n) #timeseries (\days)
-
-#allow quick modification of the number of days to train on
-train_size = 40
-t_train = np.linspace(0, train_size, train_size) #time series for the training
-data = np.resize(data_nr,train_size)
-
-
-
-#Initial guess of our parameters
-beta = 0.3
-gamma = 1./10
-guess = (beta, gamma)
-
-#Creating the SIRModel
-model = SIRModel()
-fitted_model = SIRModel()
-
-#Applying the fit
-res = model.fit(t_train, data, guess, y0 , N)
-
-print(res.params)
-
-beta_fit=res.params['beta'].value
-gamma_fit=res.params['gamma'].value
-
-print(beta_fit)
-print(gamma_fit)
-
-fitted_S, fitted_I, fitted_R = fitted_model.SIRSolve(y0, t, N, beta_fit, gamma_fit)
-
-del data_br["Day"]
-plt.axvline(x=train_size,color='gray',linestyle='--', label="End of train dataset")
-plt.plot(t, data_br, '+', label = "Simulated Data")
-plt.plot(t, fitted_S,label="Predicted")
-plt.plot(t, fitted_I, label = "Predicted"),
-plt.plot(t, fitted_R, label = "Predicted")
-plt.legend()
-plt.show()
-
+from sklearn.metrics import mean_absolute_error
 
 #---------------- Fitted on NYC data---------------------#
 data_nyc_br = pd.read_csv("data/nyc.csv")
@@ -74,11 +19,7 @@ y0 = S0, I0, R0 #initial state vector
 n=79 #number of days
 t = np.linspace(0, n, n) #timeseries (\days)
 
-#allow quick modification of the number of days to train on
-train_size = 40
-t_train = np.linspace(0, train_size, train_size) #time series for the training
 
-data_nyc = np.resize(data_nyc_nr,train_size)
 
 #Initial guess of our parameters
 beta = 0.3
@@ -88,19 +29,47 @@ guess = (beta, gamma)
 #Creating the SIRModel
 model = SIRModel()
 fitted_model = SIRModel()
+mae_tab=np.zeros(shape=(6,18))
+
+methods=["leastsq",'least_squares','differential_evolution','brute','basinhopping','ampgo','nelder','lbfgsb','powell','cg','cobyla','bfgs','tnc','trust-constr','slsqp','shgo','dual_annealing']
+  
 
 #Applying the fit
-res = model.fit(t_train, data_nyc, guess, y0, N)
+ficname="data_OUT_.txt"
+fic = open("data/"+ficname,"w")
+for j in range(30,60,5):
+    #allow quick modification of the number of days to train on
+    print("///////////////////////////// ")
+    print("Starting with "+str(j)+" days")
+    fic.write("///////////////////////////// \n")
+    fic.write("Starting with "+str(j)+" days \n")
+    train_size = j
+    t_train = np.linspace(0, train_size, train_size) #time series for the training
+    data_nyc = np.resize(data_nyc_nr,train_size)    
+    for i in range(17):
+        res = model.fit(t_train, data_nyc, guess, y0, N, methods[i])
+        print(res.params)
+        print("method used is : "+methods[i])
+        fic.write("method used is : "+methods[i]+"\n")
+        beta_fit=res.params['beta'].value
+        gamma_fit=res.params['gamma'].value
+        print("NYC beta fitted "+str(beta_fit))
+        print("NYC gamma fitted "+str(gamma_fit))
+        fic.write("NYC beta fitted "+str(beta_fit)+"\n")
+        fic.write("NYC gamma fitted "+str(gamma_fit)+"\n")
+        fitted_S, fitted_I, fitted_R = fitted_model.SIRSolve(y0, t, N, beta_fit, gamma_fit)
+        mae = mean_absolute_error(data_nyc_nr, fitted_I)
+        print("Mean absolute error is :"+str(mae))
+        fic.write("Mean absolute error is :"+str(mae)+"\n")
+        ind=(j-35)/5
+        mae_tab[int(ind)][i]= mae
+        print("------------------------")
+        fic.write("------------------------ \n")
 
-print(res.params)
+print(mae_tab)
 
-beta_fit=res.params['beta'].value
-gamma_fit=res.params['gamma'].value
+fic.close()
 
-print("NYC beta fitted "+str(beta_fit))
-print("NYC gamma fitted "+str(gamma_fit))
-
-fitted_S, fitted_I, fitted_R = fitted_model.SIRSolve(y0, t, N, beta_fit, gamma_fit)
 
 plt.axvline(x=train_size,color='gray',linestyle='--', label="End of train dataset")
 plt.plot(t, data_nyc_nr, '+', label = "NYC Data")
