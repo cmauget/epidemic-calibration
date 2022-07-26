@@ -29,7 +29,7 @@ guess = (beta, gamma)
 #Creating the SIRModel
 model = SIRModel()
 fitted_model = SIRModel()
-mae_tab=np.zeros(shape=(6,18))
+mae_tab=np.zeros(shape=(10,18))
 
 methods=["leastsq",'least_squares','differential_evolution','brute','basinhopping','ampgo','nelder','lbfgsb','powell','cg','cobyla','bfgs','tnc','trust-constr','slsqp','shgo','dual_annealing']
   
@@ -37,7 +37,7 @@ methods=["leastsq",'least_squares','differential_evolution','brute','basinhoppin
 #Applying the fit
 ficname="data_OUT_.txt"
 fic = open("data/"+ficname,"w")
-for j in range(30,60,5):
+for j in range(20,75,5):
     #allow quick modification of the number of days to train on
     print("///////////////////////////// ")
     print("Starting with "+str(j)+" days")
