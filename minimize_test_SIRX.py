@@ -1,4 +1,4 @@
-from minimze import SIRXModel
+from minimize import SIRXModel
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
