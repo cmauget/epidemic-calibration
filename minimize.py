@@ -11,16 +11,14 @@ class SIRModel:
     def __init__(self):
         pass
 
-    def init(self, data_name='', train_size='0', i_name=''):
+    def init(self, data_info, train_size='0'):
 
-        data_nr = pd.read_csv("data/"+data_name)[i_name].to_numpy()
+        data_nr = pd.read_csv("data/"+data_info[0])[data_info[1]].to_numpy()
         data = np.resize(data_nr,train_size)
         t_train = np.linspace(0, train_size, train_size) #time series for the training
         t = np.linspace(0, int(len(data_nr)), int(len(data_nr))) #timeseries (\days)
 
         return data_nr, data, t_train, t
-
-
 
 
     #SIR EDO
@@ -57,17 +55,22 @@ class SIRModel:
 
         return err
 
-    def fit(self , data_name, i_name, train_size, guess, y0, N, methods='leastsq', max_nfev=100000):
+    def fit(self , N, y0, guess, data_info, methods='leastsq', max_nfev=100000):
 
         params = Parameters()
         params.add('beta',value=guess[0],min=0, max = 10, vary=True)
         params.add('gamma',value=guess[1],min=0, max=2, vary=True)
         params.add('N', value=N, vary=False)
 
-        data_nr, data, t_train, t = self.init(self, data_name='', train_size='0', i_name='')
+        data_nr, data, t_train, t = self.init(data_info, int(data_info[2]))
 
-        out = minimize(self.err, params, method=methods, args=(t, data, y0, ),max_nfev=max_nfev)
-        return out, data_nr
+        out = minimize(self.err, params, method=methods, args=(t_train, data, y0, ),max_nfev=max_nfev)
+        beta_fit=out.params['beta'].value
+        gamma_fit=out.params['gamma'].value
+        fitted_parameters=([beta_fit, gamma_fit])
+        fitted_curve=self.SIRSolve(y0, t, N, beta_fit, gamma_fit)
+
+        return out, data_nr, fitted_parameters, fitted_curve
 
 
 #-------------------SIRD model----------------------#
