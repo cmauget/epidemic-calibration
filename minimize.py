@@ -3,10 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 from lmfit import minimize, Parameters
-
+from sklearn.metrics import mean_absolute_error
 
 #-------------------SIR model----------------------#
-
 class SIRModel:
 
     def __init__(self):
@@ -31,16 +30,14 @@ class SIRModel:
         
         return N, y0, guess, data_info
 
-
     def init(self, data_info):
-
+    
         data_nr = pd.read_csv("data/"+data_info[0])[data_info[1]].to_numpy()
         data = np.resize(data_nr,int(data_info[2]))
         t_train = np.linspace(0, int(data_info[2]), int(data_info[2])) #time series for the training
         t = np.linspace(0, int(len(data_nr)), int(len(data_nr))) #timeseries (\days)
 
         return data_nr, data, t_train, t
-
 
     #SIR EDO
     def deriv(self, y0, t, N, beta, gamma): 
@@ -87,15 +84,14 @@ class SIRModel:
 
         data_nr, data, t_train, t = self.init(data_info)
 
-        print(methods)
         out = minimize(self.err, params, method=methods, args=(t_train, data, y0, ),max_nfev=max_nfev)
         beta_fit=out.params['beta'].value
         gamma_fit=out.params['gamma'].value
         fitted_parameters=([beta_fit, gamma_fit])
         fitted_curve=self.SIRSolve(y0, t, N, beta_fit, gamma_fit)
+        mae = mean_absolute_error(data_nr, fitted_curve[:][1])
 
-        return out, data_nr, fitted_parameters, fitted_curve
-
+        return t, out, data_nr, fitted_parameters, fitted_curve, mae
 
 #-------------------SIRD model----------------------#
 class SIRDModel:
@@ -124,7 +120,6 @@ class SIRDModel:
         return S, I, R, D
 
     def err(self, params, t,  data_i, data_d, y0):
-
 
         beta = params["beta"]
         gamma = params["gamma"]
