@@ -1,8 +1,8 @@
+from matplotlib.font_manager import json_dump
 from minimize import SIRModel
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics import mean_absolute_error
+
+
 
 def init():
 
@@ -22,6 +22,16 @@ def init():
     #data_info=(["nyc.csv","CASE_COUNT","50"])
 
     return N, y0, guess, data_info
+    
+
+def disp(fitted_parameters, fit, data_nr):
+
+    print(fitted_parameters)
+
+    plt.plot(fit[:][1])
+    plt.plot(data_nr,'+')
+
+    plt.show()
 
 
 #---------------- Fitted on NYC data---------------------#
@@ -31,14 +41,8 @@ model = SIRModel()
 
 methods=["leastsq",'least_squares','differential_evolution','brute','basinhopping','ampgo','nelder','lbfgsb','powell','cg','cobyla','bfgs','tnc','trust-constr','slsqp','shgo','dual_annealing']
 
-N, y0, guess, data_info = init()
+out, data_nr, fitted_parameters, fit = model.fit("config.txt" , methods[0])
 
-out, data_nr, fitted_parameters, fit = model.fit( N, y0, guess, data_info)
+disp(fitted_parameters, fit, data_nr)
 
-print(fitted_parameters)
-
-plt.plot(fit[:][1])
-plt.plot(data_nr,'+')
-plt.legend()
-plt.show()
 
