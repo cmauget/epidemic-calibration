@@ -1,8 +1,10 @@
 3e8
 1
 0
-data_SIR_155_n.csv
+data_SIR_n.csv
+Suspected
 Infected
-55
+Recovered
+75
 0.3
 0.1
