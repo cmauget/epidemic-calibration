@@ -1,8 +1,8 @@
 3e8
 1
 0
-data_SIR_175_n.csv
+data_SIR_155_n.csv
 Infected
-100
+55
 0.3
 0.1
