@@ -19,27 +19,36 @@ class SIRModel:
             data = f.readlines()
         f.close()
 
-        for i in range(8):
+        for i in range(10):
             data[i]=data[i].rstrip("\n")
         
         N = float(data[0])
         I0 = float(data[1])
         S0 = N-I0
         y0 = S0, I0, float(data[2])
-        data_info = data[3:6]
+        data_info = data[3:8]
+        print(data_info)
 
-        guess = [float(x) for x in data[6:8]]
+        guess = [float(x) for x in data[8:10]]
         
         return N, y0, guess, data_info
 
 
     def init(self, data_info):
 
-        data_nr = pd.read_csv("data/"+data_info[0])[data_info[1]].to_numpy()
-        data = np.resize(data_nr,int(data_info[2]))
-        t_train = np.linspace(0, int(data_info[2]), int(data_info[2])) #time series for the training
-        t = np.linspace(0, int(len(data_nr)), int(len(data_nr))) #timeseries (\days)
+        data_nr = np.zeros([3,175])
 
+        temp_load = pd.read_csv("data/"+data_info[0])
+
+        for i in range(3):
+            data_nr[i,:] = temp_load[data_info[i+1]].to_numpy()
+
+        data = np.resize(data_nr,(3,int(data_info[4])))
+        data[1,:] = np.resize(data_nr[1,:],int(data_info[4])) #wtf ca marche sinon ca bug comprends pas
+
+        t_train = np.linspace(0, int(data_info[4]), int(data_info[4])) #time series for the training
+        t = np.linspace(0, int(len(data_nr[0,:])), int(len(data_nr[0,:])) ) #timeseries (\days)
+      
         return data_nr, data, t_train, t
 
 
@@ -63,7 +72,7 @@ class SIRModel:
 
         return S, I, R
 
-    def err(self, params, t,  data, y0):
+    def err(self, params, t,  data, y0, data_info):
 
 
         beta = params["beta"]
@@ -71,9 +80,10 @@ class SIRModel:
         N = params["N"]
 
         S, I, R  = self.SIRSolve(y0, t, N, beta, gamma)
-        X = I 
 
-        err = X - data
+        
+
+        err = I - data[1,:]
 
         return err
 
@@ -89,12 +99,12 @@ class SIRModel:
         data_nr, data, t_train, t = self.init(data_info)
 
         print(methods)
-        out = minimize(self.err, params, method=methods, args=(t_train, data, y0, ),max_nfev=max_nfev)
+        out = minimize(self.err, params, method=methods, args=(t_train, data, y0, data_info, ),max_nfev=max_nfev)
         beta_fit=out.params['beta'].value
         gamma_fit=out.params['gamma'].value
         fitted_parameters=([beta_fit, gamma_fit])
         fitted_curve=self.SIRSolve(y0, t, N, beta_fit, gamma_fit)
-        mae = mean_absolute_error(data_nr, fitted_curve[:][1])
+        mae = mean_absolute_error(data_nr[1,:], fitted_curve[:][1])
 
         return out, data_nr, fitted_parameters, fitted_curve, mae, t
 
