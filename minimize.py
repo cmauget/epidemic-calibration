@@ -24,8 +24,9 @@ class SIRModel:
         
         N = float(data[0])
         I0 = float(data[1])
-        S0 = N-I0
-        y0 = S0, I0, float(data[2])
+        R0 = float(data[2])
+        S0 = N-I0-R0
+        y0 = S0, I0, R0
         data_info = data[3:8]
         print(data_info)
 
@@ -36,9 +37,9 @@ class SIRModel:
 
     def init(self, data_info):
 
-        data_nr = np.zeros([3,175])
-
         temp_load = pd.read_csv("data/"+data_info[0])
+
+        data_nr = np.zeros([3,len(temp_load[data_info[1]])])
 
         for i in range(3):
             data_nr[i,:] = temp_load[data_info[i+1]].to_numpy()
@@ -81,9 +82,8 @@ class SIRModel:
 
         S, I, R  = self.SIRSolve(y0, t, N, beta, gamma)
 
+        err = I - data[1,:] 
         
-
-        err = I - data[1,:]
 
         return err
 
@@ -181,7 +181,7 @@ class SIRDModel:
 
         S, I, R, D  = self.SIRSolve(y0, t, N, beta, gamma, kappa)
 
-        err = I - data_i + D -data_d
+        err = pow(I - data_i,2) + pow(D - data_d,2)
 
         return err
 

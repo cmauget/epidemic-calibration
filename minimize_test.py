@@ -58,19 +58,21 @@ methods=["leastsq",'least_squares','differential_evolution','brute','basinhoppin
 #methods=["leastsq",'least_squares']
 data = {'Starting_Days': [], 'Methods': [], 'Beta': [], 'Gamma': [], 'Mae': [], 'Succes': []}
 
-start, end, step = 100, 105, 5
+start, end, step = 60, 65, 5
 for i in range(1):
     for j in range(start,end,step):
-        change_train_size("config.txt", j)
-        out, data_nr, fitted_parameters, fit, mae, t = model.fit("config.txt" , methods[i])
+        change_train_size("config3.txt", j)
+        out, data_nr, fitted_parameters, fit, mae, t = model.fit("config3.txt" , methods[i])
+
+        data2 = data_nr[1,:]
+        disp(j, t, fitted_parameters, fit, data2, mae, methods[0])
 
         #disp(j, t, fitted_parameters, fit, data_nr, mae, methods[i])
+        
 
         data = data_set(data, j, methods[i], fitted_parameters, mae, str(out.success))
     
-    plt.plot(fit[:][1])
-    plt.plot(data_nr[1,:],'+')
-    plt.show()
+  
 
 
 data_frame(data, start, end, step)

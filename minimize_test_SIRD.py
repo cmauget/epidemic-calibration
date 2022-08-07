@@ -66,7 +66,7 @@ for i in range(2):
 data_frame(data, start, end, step)
 """
 
-out, data_nr, fitted_parameters, fit, mae, t = model.fit("config2.txt")
+out, data_nr, fitted_parameters, fit, mae, t = model.fit("config2_2.txt")
 
 print(fitted_parameters)
 
