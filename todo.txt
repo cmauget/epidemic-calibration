@@ -1,0 +1,10 @@
+Consigne a Roxane pour le config.txt :
+
+    - pour utiliser le modele SIR il faut mettre le nom des 3 compartiments, si il n'y a pas les 3 mettre 3 fois celui des Infected (cf config.txt et config3.txt)
+
+    - pour utiliser le modele SIRD il faut mettre le nom des Infected et des Death. Il faut impérativement avoir les deux pour que ca marche (cf config2.txt et config2_2.txt)
+
+A faire : 
+
+    - plot la variation de la MAE en fonction des méthodes et du temps
+    - générer des jeux de données propres avec les 4 compartiments (suspected, infected, recovered, death)
