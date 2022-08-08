@@ -1,6 +1,7 @@
 from matplotlib.font_manager import json_dump
 from minimize import SIRModel
 import matplotlib.pyplot as plt, pandas as pd
+import numpy as np
 
 def disp(train_size, t, fitted_parameters, fit, data_nr, mae, methods):	
     fig, ax = plt.subplots(figsize=(8.26, 8.26))
@@ -8,8 +9,8 @@ def disp(train_size, t, fitted_parameters, fit, data_nr, mae, methods):
     ax.set_title('Infected')
     plt.axvline(x=train_size,color='gray',linestyle='--', label="End of train dataset")
     ax.scatter(t, data_nr, marker='+', color='black', label=f'Measures (method = {methods})')
-    ax.plot(t, fit[:][1], 'g-', label=f'Simulation')
-    ax.vlines(t, data_nr, fit[:][1], color='g', linestyle=':', label=f'MAE = {mae:.1f}')
+    ax.plot(t, fit, 'g-', label=f'Simulation')
+    ax.vlines(t, data_nr, fit, color='g', linestyle=':', label=f'MAE = {mae:.1f}')
     fig.legend(loc='upper center')
     plt.show()
     plt.close(fig)
@@ -18,7 +19,7 @@ def change_train_size(config_name, train_size):
     with open("data/"+config_name, "r") as f:
         data = f.readlines()
     f.close()
-    data[5] = data[5].rstrip("\n")
+    data[7] = data[7].rstrip("\n")
     f = open("data/"+config_name, "r")
     replacement = ""
     for line in f:
@@ -58,21 +59,28 @@ methods=["leastsq",'least_squares','differential_evolution','brute','basinhoppin
 #methods=["leastsq",'least_squares']
 data = {'Starting_Days': [], 'Methods': [], 'Beta': [], 'Gamma': [], 'Mae': [], 'Succes': []}
 
-start, end, step = 60, 65, 5
-for i in range(1):
+
+start, end, step = 20, 50, 5
+mae_tab = np.zeros([2,6])
+for i in range(2):
     for j in range(start,end,step):
-        change_train_size("config3.txt", j)
-        out, data_nr, fitted_parameters, fit, mae, t = model.fit("config3.txt" , methods[i])
 
-        data2 = data_nr[1,:]
-        disp(j, t, fitted_parameters, fit, data2, mae, methods[0])
-
-        #disp(j, t, fitted_parameters, fit, data_nr, mae, methods[i])
+        change_train_size("config.txt", j)
         
-
-        data = data_set(data, j, methods[i], fitted_parameters, mae, str(out.success))
-    
-  
-
+        out, data_nr, fitted_parameters, fit, mae, t = model.fit("config.txt" , methods[i])
+        print(fitted_parameters)
+        
+        ind = int((j-start)/step)
+        mae_tab[i][ind] = np.sqrt(mae)
+        
+        data = data_set(data, j, methods[i], fitted_parameters, mae, 'true')
 
 data_frame(data, start, end, step)
+
+data_rs = fit[:][1]
+
+data_rs = np.resize(data_rs,(175,))
+plt.plot(mae_tab[0][:])
+plt.plot(mae_tab[1][:])
+plt.show()
+disp(45, t, fitted_parameters, data_rs, data_nr[1][:], mae, methods[1])
