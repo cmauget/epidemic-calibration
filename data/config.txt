@@ -1,8 +1,8 @@
 3e8
 1
 0
+0
 data_SIRD__n10.csv
-Suspected
 Infected
 Death
 45
