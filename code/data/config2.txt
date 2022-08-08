@@ -1,0 +1,11 @@
+3e8
+1
+0
+0
+data_SIRD_175.csv
+Infected
+Death
+100
+0.3
+0.1
+0.01

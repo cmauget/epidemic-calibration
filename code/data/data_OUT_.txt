@@ -1,0 +1,267 @@
+///////////////////////////// 
+Starting with 40 days 
+method used is : leastsq
+NYC beta fitted 0.4403036321002901
+NYC gamma fitted 0.03540113884717111
+Mean absolute error is :577.7942707137561
+------------------------ 
+method used is : least_squares
+NYC beta fitted 0.4403110049989224
+NYC gamma fitted 0.035401437839504175
+Mean absolute error is :577.8002750310834
+------------------------ 
+method used is : differential_evolution
+NYC beta fitted 0.44031484775187313
+NYC gamma fitted 0.035401590647706205
+Mean absolute error is :577.8034275737623
+------------------------ 
+method used is : brute
+NYC beta fitted 0.5263157894736842
+NYC gamma fitted 0.10526315789473684
+Mean absolute error is :1510.3163470862723
+------------------------ 
+method used is : basinhopping
+NYC beta fitted 0.4403148578950167
+NYC gamma fitted 0.03540159245406205
+Mean absolute error is :577.8034247883494
+------------------------ 
+method used is : ampgo
+NYC beta fitted 0.44031483794505943
+NYC gamma fitted 0.03540158532768223
+Mean absolute error is :577.803458554368
+------------------------ 
+method used is : nelder
+NYC beta fitted 0.4403148611619434
+NYC gamma fitted 0.03540163120323114
+Mean absolute error is :577.803121766962
+------------------------ 
+method used is : lbfgsb
+NYC beta fitted 0.4403148471549384
+NYC gamma fitted 0.03540159032220891
+Mean absolute error is :577.8034294727559
+------------------------ 
+method used is : powell
+NYC beta fitted 0.4403149590136185
+NYC gamma fitted 0.0354018795708394
+Mean absolute error is :577.8012668294325
+------------------------ 
+method used is : cg
+NYC beta fitted 0.44031484545468236
+NYC gamma fitted 0.03540159180366187
+Mean absolute error is :577.8034158159693
+------------------------ 
+method used is : cobyla
+NYC beta fitted 0.440134674046993
+NYC gamma fitted 0.03538399347159915
+Mean absolute error is :577.7974302602405
+------------------------ 
+method used is : bfgs
+NYC beta fitted 0.44031484081203
+NYC gamma fitted 0.03540158921461878
+Mean absolute error is :577.8034310404713
+------------------------ 
+method used is : tnc
+NYC beta fitted 0.4403148575781979
+NYC gamma fitted 0.0354015924456772
+Mean absolute error is :577.8034244951082
+------------------------ 
+method used is : trust-constr
+NYC beta fitted 0.4403148732476453
+NYC gamma fitted 0.03540158955017758
+Mean absolute error is :577.8034652013542
+------------------------ 
+method used is : slsqp
+NYC beta fitted 0.44031487859458984
+NYC gamma fitted 0.03540159580026725
+Mean absolute error is :577.8034217962415
+------------------------ 
+method used is : shgo
+NYC beta fitted 0.0
+NYC gamma fitted 0.0
+Mean absolute error is :2417.6202531645567
+------------------------ 
+method used is : dual_annealing
+NYC beta fitted 0.4403148573072624
+NYC gamma fitted 0.03540158431932055
+Mean absolute error is :577.8034885140394
+------------------------ 
+///////////////////////////// 
+Starting with 45 days 
+method used is : leastsq
+NYC beta fitted 0.4415123776050828
+NYC gamma fitted 0.035598473207743564
+Mean absolute error is :577.6180886821077
+------------------------ 
+method used is : least_squares
+NYC beta fitted 0.44151902190990977
+NYC gamma fitted 0.03559837945626457
+Mean absolute error is :577.626717335473
+------------------------ 
+method used is : differential_evolution
+NYC beta fitted 0.44152245819960634
+NYC gamma fitted 0.035598329473005785
+Mean absolute error is :577.631187924346
+------------------------ 
+method used is : brute
+NYC beta fitted 0.5263157894736842
+NYC gamma fitted 0.10526315789473684
+Mean absolute error is :1510.3163470862723
+------------------------ 
+method used is : basinhopping
+NYC beta fitted 0.44152246961752295
+NYC gamma fitted 0.03559832903906901
+Mean absolute error is :577.6312043573104
+------------------------ 
+method used is : ampgo
+NYC beta fitted 0.44152246800179484
+NYC gamma fitted 0.035598330028618896
+Mean absolute error is :577.631196559726
+------------------------ 
+method used is : nelder
+NYC beta fitted 0.44152239957665707
+NYC gamma fitted 0.035598348388940604
+Mean absolute error is :577.6310051630375
+------------------------ 
+method used is : lbfgsb
+NYC beta fitted 0.4415224582377314
+NYC gamma fitted 0.035598329008073804
+Mean absolute error is :577.6311907118377
+------------------------ 
+method used is : powell
+NYC beta fitted 0.4415243969223165
+NYC gamma fitted 0.035598382513907234
+Mean absolute error is :577.6332309740452
+------------------------ 
+method used is : cg
+NYC beta fitted 0.4415224709406651
+NYC gamma fitted 0.03559833020597147
+Mean absolute error is :577.631199085268
+------------------------ 
+method used is : cobyla
+NYC beta fitted 0.4417039980506321
+NYC gamma fitted 0.03565243541945229
+Mean absolute error is :577.532856786508
+------------------------ 
+method used is : bfgs
+NYC beta fitted 0.4415224536256007
+NYC gamma fitted 0.03559833182577776
+Mean absolute error is :577.6311684946616
+------------------------ 
+method used is : tnc
+NYC beta fitted 0.44152243767142163
+NYC gamma fitted 0.035598313621869826
+Mean absolute error is :577.6312564351417
+------------------------ 
+method used is : trust-constr
+NYC beta fitted 0.4415224860885769
+NYC gamma fitted 0.03559833321157002
+Mean absolute error is :577.6311997718152
+------------------------ 
+method used is : slsqp
+NYC beta fitted 0.44152248249361536
+NYC gamma fitted 0.03559832883157843
+Mean absolute error is :577.6312212270832
+------------------------ 
+method used is : shgo
+NYC beta fitted 0.5
+NYC gamma fitted 0.0
+Mean absolute error is :3733.626578967398
+------------------------ 
+method used is : dual_annealing
+NYC beta fitted 0.4415224613652801
+NYC gamma fitted 0.035598325078246895
+Mean absolute error is :577.6312176819126
+------------------------ 
+///////////////////////////// 
+Starting with 50 days 
+method used is : leastsq
+NYC beta fitted 0.4409412104669741
+NYC gamma fitted 0.03491871353528608
+Mean absolute error is :583.6907120008402
+------------------------ 
+method used is : least_squares
+NYC beta fitted 0.4409496852886763
+NYC gamma fitted 0.034918436509197306
+Mean absolute error is :583.7009908576042
+------------------------ 
+method used is : differential_evolution
+NYC beta fitted 0.4409541794819316
+NYC gamma fitted 0.03491828743214187
+Mean absolute error is :583.7064648075499
+------------------------ 
+method used is : brute
+NYC beta fitted 0.5263157894736842
+NYC gamma fitted 0.10526315789473684
+Mean absolute error is :1510.3163470862723
+------------------------ 
+method used is : basinhopping
+NYC beta fitted 0.4409541932523864
+NYC gamma fitted 0.034918288226741034
+Mean absolute error is :583.7064674925842
+------------------------ 
+method used is : ampgo
+NYC beta fitted 0.4409541997696853
+NYC gamma fitted 0.03491828774170436
+Mean absolute error is :583.7064784562941
+------------------------ 
+method used is : nelder
+NYC beta fitted 0.440954189236305
+NYC gamma fitted 0.03491829963978699
+Mean absolute error is :583.7063356313544
+------------------------ 
+method used is : lbfgsb
+NYC beta fitted 0.44095417838518725
+NYC gamma fitted 0.03491828773383965
+Mean absolute error is :583.7064604853063
+------------------------ 
+method used is : powell
+NYC beta fitted 0.440954026456587
+NYC gamma fitted 0.03491828857125068
+Mean absolute error is :583.7063227526033
+------------------------ 
+method used is : cg
+NYC beta fitted 0.44095396946958243
+NYC gamma fitted 0.034918305936685656
+Mean absolute error is :583.706079153719
+------------------------ 
+method used is : cobyla
+NYC beta fitted 0.44089087268316896
+NYC gamma fitted 0.034955660983182035
+Mean absolute error is :583.232485376599
+------------------------ 
+method used is : bfgs
+NYC beta fitted 0.44095417501205436
+NYC gamma fitted 0.034918286993868786
+Mean absolute error is :583.7064659660415
+------------------------ 
+method used is : tnc
+NYC beta fitted 0.440954183901619
+NYC gamma fitted 0.034918289145261405
+Mean absolute error is :583.7064492565095
+------------------------ 
+method used is : trust-constr
+NYC beta fitted 0.4409542076463985
+NYC gamma fitted 0.03491829118057099
+Mean absolute error is :583.7064463990893
+------------------------ 
+method used is : slsqp
+NYC beta fitted 9.135180586512986
+NYC gamma fitted 1.9999999999994906
+Mean absolute error is :2459.721972264372
+------------------------ 
+method used is : shgo
+NYC beta fitted 0.0
+NYC gamma fitted 0.0
+Mean absolute error is :2417.6202531645567
+------------------------ 
+method used is : dual_annealing
+NYC beta fitted 0.44095418643109374
+NYC gamma fitted 0.03491828392958997
+Mean absolute error is :583.706510102293
+------------------------ 
+///////////////////////////// 
+Starting with 55 days 
+method used is : leastsq
+NYC beta fitted 0.44038689947865306
+NYC gamma fitted 0.034059658730122844
+Mean absolute error is :594.772169468594
