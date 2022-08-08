@@ -56,8 +56,10 @@ res = odeint(deriv, y0, t, args=(N, beta, gamma, k))
 S, I, R, D = res.T
 print(I)
 #user input for noise
-if int(input("Do you want to add noise ? (yes = 0) : ")) == 0 :
-    S, I, R, D = noise(S,I,R,D,4,n,N)
+if int(input("Do you want to add noise ? (yes = 1) : ")) == 1 :
+    val=0
+    S, I, R, D = noise(S,I,R,D,val,n,N)
+    noise_name = "_n"+str(val)
 
 #to generate datasheets
 if int(input("Do you want to generate data ? (yes = 0) : ")) == 0 :
@@ -76,7 +78,7 @@ if int(input("Do you want to generate data ? (yes = 0) : ")) == 0 :
     else : 
     #csv file
         header = ['Day','Suspected', 'Infected','Recovered','Death']
-        ficnamecsv="data_SIRD_"+str(size)+".csv"
+        ficnamecsv="data_SIRD_"+noise_name+".csv"
 
         with open("data/"+ficnamecsv, 'w') as f:
             writer = csv.writer(f)

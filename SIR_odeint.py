@@ -49,8 +49,9 @@ noise_name = "" #define the name of the output file if there is noise
 
 #user input for noise
 if int(input("Do you want to add noise ? (yes = 1) : ")) == 1 :
-    S, I, R = noise(S,I,R,4,n,N)
-    noise_name = "_n"
+    val=4
+    S, I, R = noise(S,I,R,val,n,N)
+    noise_name = "_n"+str(val)
 
 #to generate datasheets
 if int(input("Do you want to generate data ? (yes = 1) : ")) == 1 :
@@ -60,7 +61,7 @@ if int(input("Do you want to generate data ? (yes = 1) : ")) == 1 :
 
     if int(input("Enter 1 for a .txt, 0 for a .csv : ")) == 1 :
         #txt file
-        ficname="data_SIR_"+str(size)+noise_name+".txt"
+        ficname="data_SIR_"+noise_name+".txt"
         fic = open("data/"+ficname,"w")
         for i in range(size):
             fic.write(str(i+1)+","+str(int(S[i]))+","+str(int(I[i]))+","+str(int(R[i]))+"\n")
