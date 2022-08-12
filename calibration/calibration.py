@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 from lmfit import minimize, Parameters
 from sklearn.metrics import mean_absolute_error
+from data_load import dataModel
 
 '''
 Reste a faire :
-    - créer classe info avec json
+    - faire une sortie graphique ?
     - sortie avec un json ?
 '''
 
@@ -62,7 +63,10 @@ class calibModel:
 
         return err
 
-    def calib(self, guess, N, t, data, y0, cor_tab, nb_comp, name_comp, name_params, fit_tab, set_gamma=False, method='leastsq', max_nfev=1000):
+    def calib(self, name_json, set_gamma=False, method='leastsq', max_nfev=1000):
+
+        d = dataModel()
+        guess, N, t, data, y0, cor_tab, nb_comp, name_comp, name_params, fit_tab = d.load_config(name_json)
 
         nb_params = len(guess)
 
@@ -85,4 +89,4 @@ class calibModel:
         #fitted_parameters=(1.08,1)
         fitted_curve = self.solve(y0, t, N, fitted_parameters, cor_tab, nb_comp)
 
-        return out, fitted_curve
+        return out, fitted_curve, data, name_comp
