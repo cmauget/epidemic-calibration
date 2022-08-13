@@ -34,8 +34,9 @@ model = calibModel()
 
 out, fitted_curve, data, name_comp = model.calib("config_SIR_1.json")
 
+'''
 print(out.params)
-
 plt.plot(fitted_curve[1,:])
 plt.plot(data[name_comp[1]], '+')
 plt.show()
+'''

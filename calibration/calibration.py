@@ -8,9 +8,8 @@ from data_load import dataModel
 
 '''
 Reste a faire :
-    - faire une sortie graphique ?
+    - add mse out
     - sortie avec un json ?
-    - chemin absolu python
 '''
 
 
@@ -25,7 +24,6 @@ class calibModel:
     def model_deriv(self, y, t, N, params, cor_tab, nb_comp):
     
         dy = np.zeros(nb_comp)
-        dy[0]=0
         ind=0
         for i in range(nb_comp):
             for j in range(nb_comp):
@@ -37,7 +35,6 @@ class calibModel:
                         dy[i]=dy[i]-params[ind]*y[i]
                         dy[j]=dy[j]+params[ind]*y[i]
                     ind+=1
-        print(dy[0])
         return dy
 
     
@@ -64,7 +61,17 @@ class calibModel:
 
         return err
 
-    def calib(self, name_json, set_gamma=False, method='leastsq', max_nfev=1000):
+    def disp(self,fitted_curve, data, name_comp, fit_tab):
+
+        for i in range(len(name_comp)):
+            if fit_tab[i]==1:
+                plt.plot(fitted_curve[i,:])
+                plt.plot(data[name_comp[i]], '+', label=name_comp[i])
+        plt.legend()
+        plt.show()
+                
+
+    def calib(self, name_json, set_gamma=False, graph_out=True, method='leastsq', max_nfev=1000):
 
         d = dataModel()
         guess, N, t, data, y0, cor_tab, nb_comp, name_comp, name_params, fit_tab = d.load_config(name_json)
@@ -89,5 +96,11 @@ class calibModel:
 
         #fitted_parameters=(1.08,1)
         fitted_curve = self.solve(y0, t, N, fitted_parameters, cor_tab, nb_comp)
+
+        print(out.params)
+
+        if graph_out:
+            self.disp(fitted_curve, data, name_comp, fit_tab)
+            
 
         return out, fitted_curve, data, name_comp
