@@ -10,6 +10,7 @@ from data_load import dataModel
 Reste a faire :
     - faire une sortie graphique ?
     - sortie avec un json ?
+    - chemin absolu python
 '''
 
 

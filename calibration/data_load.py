@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import json
@@ -7,7 +8,9 @@ class dataModel:
     @staticmethod
     def load_config(name_json):
 
-        with open("calibration/config/"+name_json, "r") as read_file:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
+        with open(dir_path+"/config/"+name_json, "r") as read_file:
             d = json.load(read_file)
 
         guess = d["guess"]
