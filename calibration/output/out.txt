@@ -1,0 +1,1 @@
+Parameters([('Beta', <Parameter 'Beta', value=0.4999999044204556 +/- 5.62e-09, bounds=[0:10]>), ('Gamma', <Parameter 'Gamma', value=0.09999999585864505 +/- 9.24e-09, bounds=[0:10]>), ('N', <Parameter 'N', value=300000000.0 (fixed), bounds=[-inf:inf]>)])

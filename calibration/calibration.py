@@ -72,7 +72,7 @@ class calibModel:
         plt.show()
                 
 
-    def calib(self, name_json, set_gamma=False, graph_out=True, method='leastsq', max_nfev=1000):
+    def calib(self, name_json, set_gamma=False, params_out=False, graph_out=True, method='leastsq', max_nfev=1000):
 
         d = dataModel()
         guess, N, t, data, y0, cor_tab, nb_comp, name_comp, name_params, fit_tab = d.load_config(name_json)
@@ -102,9 +102,11 @@ class calibModel:
 
         if graph_out:
             self.disp(fitted_curve, data, name_comp, fit_tab)
-            
 
-        return out, fitted_curve, data, name_comp
+        if params_out:
+            d.out_results(out)
+            
+        return out, fitted_curve, fitted_parameters
 
 
 #-----------Calibration-Model w/custom EDO--------------#
@@ -148,7 +150,7 @@ class calibModelEdo:
         plt.show()
                 
 
-    def calib(self, name_json, deriv, set_gamma=False, graph_out=True, method='leastsq', max_nfev=1000):
+    def calib(self, name_json, deriv, set_gamma=False, params_out=False, graph_out=True, method='leastsq', max_nfev=1000):
 
         d = dataModel()
         guess, N, t, data, y0, nb_comp, name_comp, name_params, fit_tab = d.load_config_edo(name_json)
@@ -179,5 +181,7 @@ class calibModelEdo:
         if graph_out:
             self.disp(fitted_curve, data, name_comp, fit_tab)
             
+        if params_out:
+            d.out_results(out)
 
-        return out, fitted_curve, data, name_comp
+        return out, fitted_curve, fitted_parameters

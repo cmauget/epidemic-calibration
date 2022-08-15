@@ -45,10 +45,4 @@ def deriv(y, t, N, params):
 
 model2 = calibModelEdo()
 
-out, fitted_curve, data, name_comp = model2.calib("config_SIR_1_Edo.json", deriv)
-'''
-print(out.params)
-plt.plot(fitted_curve[1,:])
-plt.plot(data[name_comp[1]], '+')
-plt.show()
-'''
+out, fitted_curve, fitted_parameters = model2.calib("config_SIR_1_Edo.json", deriv)

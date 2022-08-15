@@ -57,3 +57,12 @@ class dataModel:
         t = np.linspace(0, n, n)
 
         return guess, N, t, data, y0, nb_comp, name_comp, name_params, fit_tab
+
+
+    @staticmethod
+    def out_results(out):
+        
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        
+        with open(dir_path+"/output/out.txt", "w") as outfile:
+            outfile.write(str(out.params))
