@@ -111,7 +111,7 @@ class calibModel:
 
 #-----------Calibration-Model w/custom EDO--------------#
 
-class calibModelEdo:
+class calibModelOde:
 
     def __init__(self):
         pass

@@ -12,7 +12,7 @@ def init(test): #initialise the data
         size = 5
         name_tab = ["Suspected", "Infected", "Recovered", "Vacinated", "Death"]
         cor_tab = np.array([[0,1,0,1,0], [0,0,1,0,1], [0,0,0,0,0], [0,1,0,0,0], [0,0,0,0,0]])
-        params = np.array([0.5, 0, 1./10, 1./100, 0])
+        params = np.array([0.5, 1./500, 1./10, 1./100, 0])
 
         N = 3e8 #population
         I0 = 1 #Initial number of infected

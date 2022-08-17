@@ -1,5 +1,5 @@
 from calibration import calibModel
-from calibration import calibModelEdo
+from calibration import calibModelOde
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -29,6 +29,14 @@ def init3():
 
     return guess, N, t, data, y0, cor_tab, nb_comp, name_comp, name_params, fit_tab
 '''
+#------------------------------using an edge matrix----------------------------#
+
+model = calibModel()
+out, fitted_curve, fitted_parameters = model.calib("config_SIR_1.json")
+
+
+#-------------------------------using custom ODE--------------------------------#
+
 def deriv(y, t, N, params): 
 
     dy = np.zeros(3)
@@ -38,11 +46,7 @@ def deriv(y, t, N, params):
     dy[2]= params[1] * I
     return dy
 
-#----------------------------------------------------------------#
 
-#model = calibModel()
-#out, fitted_curve, data, name_comp = model.calib("config_SIR_1.json")
-
-model2 = calibModelEdo()
+model2 = calibModelOde()
 
 out, fitted_curve, fitted_parameters = model2.calib("config_SIR_1_Edo.json", deriv)
