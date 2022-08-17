@@ -1,0 +1,20 @@
+• ’leastsq’: Levenberg-Marquardt (default)
+• ’least squares’: Least-Squares minimization, using Trust Region Reflective
+method
+• ’differential evolution’: differential evolution
+• ’brute’: brute force method
+• ’basinhopping’: basinhopping
+• ’ampgo’: Adaptive Memory Programming for Global Optimization
+• ’nelder’: Nelder-Mead
+• ’lbfgsb’: L-BFGS-B
+• ’powell’: Powell
+• ’cobyla’: Cobyla
+• ’cg’: Conjugate-Gradient
+• ’bfgs’: BFGS
+• ’trust-constr’: trust-region for constrained optimization
+• ’slsqp’: Sequential Linear Squares Programming
+• ’emcee’: Maximum likelihood via Monte-Carlo Markov Chain
+• ’shgo’: Simplicial Homology Global Optimization
+• ’dual annealing’: Dual Annealing optimization
+Cf. Dual Annealing : Mullen, K. Continuous Global Optimization in R.
+Journal of Statistical Software, 60(6), 1 - 45, (2014). DOI:10.18637/jss.v060.i06
