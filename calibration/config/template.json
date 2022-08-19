@@ -1,0 +1,13 @@
+{
+    "guess" : [],
+    "nb_comp" : 0,
+    "name_comp" : [],
+    "cor_tab" : [[],[]],
+    "name_params" : [],
+    "fit_tab" : [],
+
+    "N" : 0,
+    "y0" : [],
+
+    "name_fic" : ""
+}
