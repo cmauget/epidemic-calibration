@@ -49,4 +49,4 @@ def deriv(y, t, N, params):
 
 model2 = calibModelOde()
 
-out, fitted_curve, fitted_parameters = model2.calib("config_SIR_1_Edo.json", deriv)
+out, fitted_curve, fitted_parameters = model2.calib("config_SIR_example_Edo.json", deriv)
