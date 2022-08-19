@@ -1,18 +1,15 @@
-# epidemic-
+# epidemic-calibration
 
- A simple SIR epidemic simulation implementation
+ A simple epidemic calibration tool, created by Clément Mauget and Roxane Leduc during an internship ar NYU.
 
-/-------------helloword.py----------------/
+We have built our GitHub mainly around two directories. A "dev" directory and a "calibration" directory. 
 
-Simple python test
+The "dev" directory contains our first codes (as well as programs allowing the reading of the JHU data) and allowed us to perform the analysis of the different methods using data frames taking into account the minimum value of the MAE for each method and train size. 
 
+The "calibration" directory is the final version of this project and contains all the generalized codes. As seen above, the "model_gen.py" program allows the automatic generation of simulated data sets according to the user’s needs.
 
-/-------------algo.py----------------/
+The "calib_test.py" programs together with  config json show to examples of the running program.
 
-regroup a RK4 and Adam Baschford method to resolve an EDO
+The "calibration.py" program, composed of two models, the "calibModel" which runs based on a edge matrix given by the user, and the "calibModelEdo" which can take as input a custom ODE defined by the user. 
 
-
-/-------------SIR_odeint.py----------------/
-
-A SIR model with a graph output
-Export data to a .txt
+And finally the "data_load.py", whose role is to decode the values contained in the config files.
