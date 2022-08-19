@@ -8,5 +8,5 @@
     "N" : 3e8,
     "y0" : [299999999, 1, 0],
 
-    "name_fic" : "data_SIR_175.csv"
+    "name_fic" : "data_SIR_example.csv"
 }
