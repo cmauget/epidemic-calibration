@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 model = calibModelDev()
 
-out, fitted_curve, data, name_comp = model.calib("config_SIR_1.json",125)
+out, fitted_curve, data, name_comp = model.calib("config_SIR_1.json",25, method='powell')
 
 print(out.params)
 
