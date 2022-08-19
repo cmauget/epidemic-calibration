@@ -32,7 +32,7 @@ def init3():
 #------------------------------using an edge matrix----------------------------#
 
 model = calibModel()
-out, fitted_curve, fitted_parameters = model.calib("config_SIR_1.json")
+out, fitted_curve, fitted_parameters = model.calib("config_SIR_example.json")
 
 
 #-------------------------------using custom ODE--------------------------------#
