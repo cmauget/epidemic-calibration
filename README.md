@@ -1,6 +1,6 @@
 # epidemic-calibration
 
- A simple epidemic calibration tool, created by Clément Mauget and Roxane Leduc during an internship ar NYU.
+ A simple epidemic calibration tool, created by Clément Mauget and Roxane Leduc during an internship at NYU.
 
 We have built our GitHub mainly around two directories. A "dev" directory and a "calibration" directory. 
 
