@@ -1,0 +1,11 @@
+4e6
+1
+0
+0
+ny_death_infectious.csv
+Infectious
+Death
+75
+0.3
+0.1
+0.02

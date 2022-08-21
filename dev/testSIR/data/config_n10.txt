@@ -1,0 +1,10 @@
+3e8
+1
+0
+data_SIRD__n10.csv
+Infected
+Infected
+Infected
+32
+0.3
+0.1
