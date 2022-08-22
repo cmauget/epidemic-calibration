@@ -46,47 +46,41 @@ def data_frame(data, start, end, step):
         dfOpt = df[ df.Starting_Days == j ]
         print('Most effective method:')
         print(df.iloc[dfOpt.Mae.idxmin(),:])
-    
+    return df
+
+def final_plot(df):
+    fig, ax = plt.subplots(figsize=(8.26,8.26))
+    ax.set_title('Comparison of methods (SIR model)', fontsize=20)
+    for method in df.Methods.unique():
+        _df = df[ df.Methods == method]
+        ax.plot(_df.Starting_Days.apply(lambda v: str(v)), _df.Mae, label=method)
+    ax.set_xlabel('Starting day', fontsize=16)
+    ax.set_ylabel('MAE', fontsize=16)
+    #~ ax.set_yscale('linear')
+    #~ ax.set_ylim([1.3e7, 1.5e7])
+    ax.legend(ncol=2, loc='upper center', fontsize=16)
+    plt.savefig('fig/fig_n5_SIR.pdf')
+    plt.show()
+    plt.close(fig)
+
 #---------------- Fitted on NYC data ---------------------#
 #Creating the SIRModel
 model = SIRModel()
 
-methods=["leastsq",'least_squares','differential_evolution','brute','basinhopping','ampgo','nelder','lbfgsb','powell','cg','cobyla','bfgs','trust-constr','emcee','slsqp','shgo','dual_annealing']
+methods=["leastsq",'least_squares','differential_evolution','brute','basinhopping','ampgo','nelder','lbfgsb','powell','cg','cobyla','bfgs','trust-constr','tnc','slsqp','shgo','dual_annealing']
+#~ methods=["leastsq",'least_squares']
 
 data = {'Starting_Days': [], 'Methods': [], 'Beta': [], 'Gamma': [], 'Mae': []}
-mae_tab = np.zeros([17,3]) # [number of methods, number of starting days]
 
-start, end, step = 25, 40, 5
-for i in range(17):
+start, end, step = 25, 40, 1
+for method in methods:
     for j in range(start,end,step):
         change_train_size("config_n5.txt", j)
-        out, data_nr, fitted_parameters, fit, mae, t = model.fit("config_n5.txt" , methods[i])
+        out, data_nr, fitted_parameters, fit, mae, t = model.fit("config_n5.txt" , method)
         data2 = data_nr[1,:]
-        disp(j, t, fitted_parameters, fit, data2, mae, methods[i])
+        # disp(j, t, fitted_parameters, fit, data2, mae, method)
         
-        ind = int((j-start)/step)
-        mae_tab[i][ind] = np.log(mae)
-        
-        data = data_set(data, j, methods[i], fitted_parameters, mae)
+        data = data_set(data, j, method, fitted_parameters, mae)
 
-data_frame(data, start, end, step)
-
-plt.plot([65,70,75], mae_tab[0][:],label='leastsq')
-plt.plot([65,70,75], mae_tab[1][:],label='least_squares')
-plt.plot([65,70,75], mae_tab[2][:],label='differential_evolution')
-plt.plot([65,70,75], mae_tab[3][:],label='brute')
-plt.plot([65,70,75], mae_tab[4][:],label='basinhopping')
-plt.plot([65,70,75], mae_tab[5][:],label='ampgo')
-plt.plot([65,70,75], mae_tab[6][:],label='nelder')
-plt.plot([65,70,75], mae_tab[7][:],label='lbfgsb')
-plt.plot([65,70,75], mae_tab[8][:],label='powell')
-plt.plot([65,70,75], mae_tab[9][:],label='cg')
-plt.plot([65,70,75], mae_tab[10][:],label='cobyla')
-plt.plot([65,70,75], mae_tab[11][:],label='bfgs')
-plt.plot([65,70,75], mae_tab[12][:],label='trust-constr')
-plt.plot([65,70,75], mae_tab[13][:],label='emcee')
-plt.plot([65,70,75], mae_tab[14][:],label='slsqp')
-plt.plot([65,70,75], mae_tab[15][:],label='shgo')
-plt.plot([65,70,75], mae_tab[16][:],label='dual_annealing')
-plt.legend()
-disp(45, t, fitted_parameters, fit, data2, mae, methods[1])
+df = data_frame(data, start, end, step)
+final_plot(df)
