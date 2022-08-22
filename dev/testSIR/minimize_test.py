@@ -39,18 +39,18 @@ def data_set(data, train_size, methods, fitted_parameters, mae):
 
     return data
 
-def data_frame(data, start, end, step):
+def data_frame(data, start, end, step, basename):
     df = pd.DataFrame(data)
-    df.to_csv('data/data_out_infected2.csv', sep = ',')
+    df.to_csv(f'data/sir_{basename}.csv', sep = ',')
     for j in range(start,end,step):
         dfOpt = df[ df.Starting_Days == j ]
         print('Most effective method:')
         print(df.iloc[dfOpt.Mae.idxmin(),:])
     return df
 
-def final_plot(df):
+def final_plot(df, basename):
     fig, ax = plt.subplots(figsize=(8.26,8.26))
-    ax.set_title('Comparison of methods (SIR model)', fontsize=20)
+    ax.set_title(f'Comparison of methods (SIR model, {basename})', fontsize=20)
     for method in df.Methods.unique():
         _df = df[ df.Methods == method]
         ax.plot(_df.Starting_Days.apply(lambda v: str(v)), _df.Mae, label=method)
@@ -59,7 +59,8 @@ def final_plot(df):
     #~ ax.set_yscale('linear')
     #~ ax.set_ylim([1.3e7, 1.5e7])
     ax.legend(ncol=2, loc='upper center', fontsize=16)
-    plt.savefig('fig/fig_n5_SIR.pdf')
+    #~ plt.grid()
+    plt.savefig(f'fig/fig_SIR_{basename}.pdf')
     plt.show()
     plt.close(fig)
 
@@ -72,15 +73,19 @@ methods=["leastsq",'least_squares','differential_evolution','brute','basinhoppin
 
 data = {'Starting_Days': [], 'Methods': [], 'Beta': [], 'Gamma': [], 'Mae': []}
 
-start, end, step = 25, 40, 1
+#~ start, end, step, basename = 27, 37, 1, 'n5'
+#~ start, end, step, basename = 32, 38, 1, 'n10'
+start, end, step, basename = 67, 75, 1, 'ny'
+
+configFile = f'config_{basename}.txt'
 for method in methods:
     for j in range(start,end,step):
-        change_train_size("config_n5.txt", j)
-        out, data_nr, fitted_parameters, fit, mae, t = model.fit("config_n5.txt" , method)
+        change_train_size(configFile, j)
+        out, data_nr, fitted_parameters, fit, mae, t = model.fit(configFile , method)
         data2 = data_nr[1,:]
-        # disp(j, t, fitted_parameters, fit, data2, mae, method)
+        #~ disp(j, t, fitted_parameters, fit, data2, mae, method)
         
         data = data_set(data, j, method, fitted_parameters, mae)
 
-df = data_frame(data, start, end, step)
-final_plot(df)
+df = data_frame(data, start, end, step, basename)
+final_plot(df, basename)
