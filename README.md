@@ -3,6 +3,7 @@
  A simple epidemic calibration tool, created by Clément Mauget and Roxane Leduc during an internship at NYU.
  
 /------------------------------------------/
+
 We have built our GitHub mainly around two directories. A "dev" directory and a "calibration" directory. 
 
 The "dev" directory contains our first codes (as well as programs allowing the reading of the JHU data) and allowed us to perform the analysis of the different methods using data frames taking into account the minimum value of the MAE for each method and train size. 
