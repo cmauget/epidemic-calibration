@@ -1,0 +1,10 @@
+4e6
+1
+0
+ny_confirmed.csv
+Delta
+Delta
+Delta
+74
+0.3
+0.1
