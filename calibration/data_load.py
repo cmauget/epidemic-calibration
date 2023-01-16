@@ -24,7 +24,7 @@ class dataModel:
         y0 = d["y0"]
 
         name_fic = d["name_fic"]
-        data = pd.read_csv("calibration/data/"+name_fic)
+        data = pd.read_csv("data/"+name_fic)
 
         n = len(data)
 
@@ -50,7 +50,7 @@ class dataModel:
         y0 = d["y0"]
 
         name_fic = d["name_fic"]
-        data = pd.read_csv("calibration/data/"+name_fic)
+        data = pd.read_csv("data/"+name_fic)
 
         n = len(data)
 
